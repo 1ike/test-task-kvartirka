@@ -1,8 +1,9 @@
 import React from 'react';
-import Head from 'next/head'
+import Head from 'next/head';
 
 import Header from './Header';
 import styles from './Layout.module.scss';
+import { APP_NAME } from '../../app/config';
 
 
 interface Props {
@@ -13,7 +14,7 @@ function Layout({ children }: Props) {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Armageddon</title>
+        <title>{APP_NAME}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
