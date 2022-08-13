@@ -12,19 +12,17 @@ interface Props {
 
 function Layout({ children }: Props) {
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>{APP_NAME}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className={styles.content}>
-        <Header />
+      <Header />
 
-        <main>
-          {children}
-        </main>
-      </div>
+      <main className={styles.content}>
+        {children}
+      </main>
 
       <footer className={styles.footer}>2022 © Все права и планета защищены</footer>
     </div>

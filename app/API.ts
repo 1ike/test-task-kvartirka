@@ -2,6 +2,7 @@ import { API_BASE_URL, DAY_STEP } from './config';
 import { Asteroid, ID } from './types';
 import { addDaysToNewDate, formatDateForQuery } from './shared';
 import { NearEarthObjects } from '../pages/api/asteroids';
+import { APOD } from '../pages/api/apod';
 
 
 interface AsteroidsParams {
@@ -43,7 +44,20 @@ const fetchAsteroidById = (id: ID): Promise<(Asteroid)> => fetch(
   });
 
 
+const fetchAPOD = (): Promise<APOD> => fetch(
+  `${API_BASE_URL}/apod`,
+  { method: 'GET' },
+)
+  .then((response) => {
+    console.log('response = ', response);
+    if (response.ok) return response.json();
+
+    throw new Error(`Error with status code ${response.status}`);
+  });
+
+
 export default {
   fetchAsteroids,
   fetchAsteroidById,
+  fetchAPOD,
 };

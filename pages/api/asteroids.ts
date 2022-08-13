@@ -1,4 +1,3 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { NASA_API_BASE_URL, NASA_API_NEO_FEED_URL } from '../../app/config';
