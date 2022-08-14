@@ -1,5 +1,8 @@
-import { useCallback, useEffect, useContext } from 'react';
+import {
+  useCallback, useEffect, useContext, useState,
+} from 'react';
 import type { NextPage } from 'next';
+import { useInView } from 'react-intersection-observer';
 
 import styles from '../styles/Home.module.scss';
 import API from '../app/API';
@@ -15,8 +18,15 @@ const Home: NextPage = () => {
     asteroids, setAsteroids, startDate, setStartDate, filteredAsteroids, missDistanceDisplay,
   } = useContext(AsteroidsContext);
 
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const { ref, inView } = useInView();
+
   const fetchAsteroids = useCallback(
     () => {
+      setLoading(true);
+      setError(null);
       API.fetchAsteroids({ startDate })
         .then((result) => {
           const newAsteroids = Object.keys(result).sort().reduce((acc, key) => {
@@ -25,16 +35,19 @@ const Home: NextPage = () => {
 
           setStartDate!(addDaysToNewDate(startDate));
           setAsteroids!(newAsteroids);
-        }).catch((error) => console.log('error = ', error));
+        }).catch((e: Error) => {
+          console.error('error = ', e);
+          setError(e.message);
+        }).finally(() => setLoading(false));
     },
     [asteroids, setAsteroids, startDate, setStartDate],
   );
 
   useEffect(() => {
-    fetchAsteroids();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+    if (inView && !loading) {
+      fetchAsteroids();
+    }
+  }, [inView, loading, fetchAsteroids]);
 
   return (
     <div className={styles.container}>
@@ -47,7 +60,16 @@ const Home: NextPage = () => {
         component={CardWithDestroyButton}
         options={{ missDistanceDisplay }}
       />
-      <button type="button" onClick={fetchAsteroids}>fetchAsteroids</button>
+      <div ref={ref} />
+
+      {loading && <p>Loading...</p>}
+      {error && (
+        <>
+          <p>{`Error: ${error}`}</p>
+          <button type="button" onClick={fetchAsteroids}>Попробовать подгрузить еще</button>
+        </>
+      )}
+
     </div>
   );
 };
