@@ -49,7 +49,6 @@ const fetchAPOD = (): Promise<APOD> => fetch(
   { method: 'GET' },
 )
   .then((response) => {
-    console.log('response = ', response);
     if (response.ok) return response.json();
 
     throw new Error(`Error with status code ${response.status}`);

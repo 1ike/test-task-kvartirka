@@ -1,12 +1,16 @@
-import '../styles/globals.scss';
 import type { AppProps } from 'next/app';
+
+import '../styles/globals.scss';
 import Layout from '../components/Layout';
+import { AsteroidsProvider } from '../app/contexts/Asteroids';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <AsteroidsProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </AsteroidsProvider>
   );
 }
 

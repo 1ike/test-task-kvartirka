@@ -51,7 +51,7 @@ function Header() {
       className={styles.wrapper}
       style={
         apod
-          ? { backgroundImage: `url(${apod.url})`, backgroundPosition: 'center', backgroundSize: 'cover' }
+          ? { backgroundImage: `url(${apod.url})` }
           : {}
       }
     >

@@ -3,12 +3,8 @@
 .wrapper {
   color: white;
   background-color: black;
-  overflow: hidden;
-
-  &__img {
-    // position: absolute;
-
-  }
+  background-position: 'center';
+  background-size: 'cover';
 }
 
 

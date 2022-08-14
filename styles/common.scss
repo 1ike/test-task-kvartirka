@@ -3,6 +3,10 @@
 
 .container {
   max-width: 1000px;
-  padding: 0 $margin;
+  padding: 0 $margin-lg;
   margin: 0 auto;
+
+  @media (max-width: $breakpoint-lg) {
+    padding: 0 $margin;
+  }
 }
