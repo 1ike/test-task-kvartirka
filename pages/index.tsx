@@ -5,11 +5,12 @@ import styles from '../styles/Home.module.scss';
 import API from '../app/API';
 import { addDaysToNewDate } from '../app/shared';
 import { AsteroidsContext } from '../app/contexts/Asteroids';
+import Settings from '../components/Settings';
 
 
 const Home: NextPage = () => {
   const {
-    asteroids, setAsteroids, startDate, setStartDate,
+    asteroids, setAsteroids, startDate, setStartDate, filteredAsteroids,
   } = useContext(AsteroidsContext);
 
   const fetchAsteroids = useCallback(
@@ -29,15 +30,17 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     fetchAsteroids();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <h1 className={styles.header__title}>Ближайшие подлёты</h1>
+        <Settings />
       </div>
-      {asteroids.map((asteroid) => (
+      {filteredAsteroids.map((asteroid) => (
         <div key={asteroid.id}>
           {asteroid.id}
           <br />
