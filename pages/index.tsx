@@ -6,11 +6,12 @@ import API from '../app/API';
 import { addDaysToNewDate } from '../app/shared';
 import { AsteroidsContext } from '../app/contexts/Asteroids';
 import Settings from '../components/Settings';
+import CardWithDestroyButton from '../components/CardWithDestroyButton';
 
 
 const Home: NextPage = () => {
   const {
-    asteroids, setAsteroids, startDate, setStartDate, filteredAsteroids,
+    asteroids, setAsteroids, startDate, setStartDate, filteredAsteroids, missDistanceDisplay,
   } = useContext(AsteroidsContext);
 
   const fetchAsteroids = useCallback(
@@ -41,15 +42,11 @@ const Home: NextPage = () => {
         <Settings />
       </div>
       {filteredAsteroids.map((asteroid) => (
-        <div key={asteroid.id}>
-          {asteroid.id}
-          <br />
-          {asteroid.close_approach_data[0].close_approach_date_full}
-          <br />
-          {asteroid.is_potentially_hazardous_asteroid ? 'dangerous' : 'peacefull'}
-          <br />
-          <br />
-        </div>
+        <CardWithDestroyButton
+          key={asteroid.id}
+          asteroid={asteroid}
+          options={{ missDistanceDisplay }}
+        />
       ))}
       <button type="button" onClick={fetchAsteroids}>fetchAsteroids</button>
     </div>

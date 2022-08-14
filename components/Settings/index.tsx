@@ -1,13 +1,12 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useContext } from 'react';
-import type { NextPage } from 'next';
 import cn from 'classnames';
 
 import styles from './Settings.module.scss';
 import { AsteroidsContext, MissDistanceDisplay } from '../../app/contexts/Asteroids';
 
 
-const Settings: NextPage = () => {
+const Settings = () => {
   const {
     missDistanceDisplay, setMissDistanceDisplay, onlyDangerous, setOnlyDangerous,
   } = useContext(AsteroidsContext);
