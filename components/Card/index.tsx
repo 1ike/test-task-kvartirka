@@ -12,14 +12,18 @@ const formatDate = (date: Date) => date
   .slice(0, -3);
 
 
+export interface CardOptions {
+  missDistanceDisplay: MissDistanceDisplay
+}
 export interface CardProps {
   asteroid: Asteroid,
-  options: {
-    missDistanceDisplay: MissDistanceDisplay
-  },
+  options?: CardOptions,
 }
 
-const Card = ({ asteroid, options: { missDistanceDisplay } }: CardProps) => {
+const Card = ({
+  asteroid,
+  options: { missDistanceDisplay } = { missDistanceDisplay: MissDistanceDisplay.kilometers },
+}: CardProps) => {
   const approachDate = new Date(asteroid.close_approach_data[0].close_approach_date);
 
   const isDangerous = asteroid.is_potentially_hazardous_asteroid;

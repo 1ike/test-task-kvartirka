@@ -6,7 +6,7 @@ const CardWithDestroyButton = (props: CardProps) => {
   const addToBlackList = () => console.log('addToBlackList with id = ', props.asteroid.id);
 
   return (
-    <>
+    <div>
       <Card {...props} />
       <button
         type="button"
@@ -15,7 +15,7 @@ const CardWithDestroyButton = (props: CardProps) => {
       >
         уничтожить
       </button>
-    </>
+    </div>
   );
 };
 

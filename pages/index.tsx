@@ -7,6 +7,7 @@ import { addDaysToNewDate } from '../app/shared';
 import { AsteroidsContext } from '../app/contexts/Asteroids';
 import Settings from '../components/Settings';
 import CardWithDestroyButton from '../components/CardWithDestroyButton';
+import Cards from '../components/Cards';
 
 
 const Home: NextPage = () => {
@@ -41,13 +42,11 @@ const Home: NextPage = () => {
         <h1 className={styles.header__title}>Ближайшие подлёты</h1>
         <Settings />
       </div>
-      {filteredAsteroids.map((asteroid) => (
-        <CardWithDestroyButton
-          key={asteroid.id}
-          asteroid={asteroid}
-          options={{ missDistanceDisplay }}
-        />
-      ))}
+      <Cards
+        asteroids={filteredAsteroids}
+        component={CardWithDestroyButton}
+        options={{ missDistanceDisplay }}
+      />
       <button type="button" onClick={fetchAsteroids}>fetchAsteroids</button>
     </div>
   );
