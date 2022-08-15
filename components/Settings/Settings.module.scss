@@ -1,6 +1,13 @@
+@import "../../styles/variables.scss";
+
 .settings {
   display: flex;
   justify-content: space-between;
+
+  @media (max-width: $breakpoint-lg) {
+    flex-direction: column;
+    gap: 16px;
+  }
 }
 
 .radio {

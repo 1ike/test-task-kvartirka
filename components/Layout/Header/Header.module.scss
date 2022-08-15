@@ -12,9 +12,15 @@
   @extend .container;
 
   padding-top: $margin;
+  padding-bottom: $margin;
   display: flex;
   min-height: 108px;
   justify-content: space-between;
+
+  @media (max-width: $breakpoint-lg) {
+    flex-direction: column;
+    gap: 16px;
+  }
 }
 
 .logo {
