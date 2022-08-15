@@ -33,15 +33,17 @@ const fetchAsteroids = ({ startDate, endDate }: AsteroidsParams): Promise<(NearE
 };
 
 
-const fetchAsteroidById = (id: ID): Promise<(Asteroid)> => fetch(
-  `${API_BASE_URL}${id}`,
-  { method: 'GET' },
-)
-  .then((response) => {
-    if (response.ok) return response.json();
+const fetchAsteroidById = (id: ID, serverUrl: string = ''): Promise<(Asteroid)> => {
+  return fetch(
+    `${serverUrl}${API_BASE_URL}/asteroids/${id}`,
+    { method: 'GET' },
+  )
+    .then((response) => {
+      if (response.ok) return response.json();
 
-    throw new Error(`Error with status code ${response.status}`);
-  });
+      throw new Error(`Error with status code ${response.status}`);
+    });
+};
 
 
 const fetchAPOD = (): Promise<APOD> => fetch(

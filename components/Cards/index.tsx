@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import styles from './Cards.module.scss';
 import { Asteroids } from '../../app/types';
 import { CardProps, CardOptions } from '../Card';
@@ -17,11 +19,14 @@ function Cards({
     <div className={containerStyles}>
       <div className={styles.cards}>
         {asteroids.map((asteroid) => (
-          <SpecificCard
-            key={asteroid.id}
-            asteroid={asteroid}
-            options={options}
-          />
+          <Link href={`/${asteroid.id}`} key={asteroid.id}>
+            <div>
+              <SpecificCard
+                asteroid={asteroid}
+                options={options}
+              />
+            </div>
+          </Link>
         ))}
       </div>
     </div>

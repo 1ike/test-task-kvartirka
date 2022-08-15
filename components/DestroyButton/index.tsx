@@ -1,12 +1,11 @@
 import { useContext } from 'react';
 
-import styles from './CardWithDestroyButton.module.scss';
-import Card, { CardProps } from '../Card';
+import styles from './DestroyButton.module.scss';
 import { AsteroidsContext } from '../../app/contexts/Asteroids';
 import { Asteroid } from '../../app/types';
 
 
-const Button = ({ asteroid }: { asteroid: Asteroid }) => {
+const DestroyButton = ({ asteroid }: { asteroid: Asteroid }) => {
   const { addDoomedAsteroid } = useContext(AsteroidsContext);
 
   const addToBlackList = () => addDoomedAsteroid!(asteroid);
@@ -22,13 +21,4 @@ const Button = ({ asteroid }: { asteroid: Asteroid }) => {
   );
 };
 
-const CardWithDestroyButton = (props: CardProps) => {
-  return (
-    <div>
-      <Card {...props} />
-      <Button asteroid={props.asteroid} />
-    </div>
-  );
-};
-
-export default CardWithDestroyButton;
+export default DestroyButton;

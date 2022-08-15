@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { NASA_API_BASE_URL, NASA_API_NEO_FEED_URL } from '../../app/config';
-import { apiKeyParam } from './shared';
-import { Asteroids } from '../../app/types';
+import { NASA_API_BASE_URL, NASA_API_NEO_FEED_URL } from '../../../app/config';
+import { apiKeyParam } from '../shared';
+import { Asteroids } from '../../../app/types';
 
 
 export interface Links {
