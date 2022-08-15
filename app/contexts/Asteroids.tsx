@@ -2,7 +2,7 @@ import React, {
   useCallback, useMemo, useState,
 } from 'react';
 
-import { Asteroids } from '../types';
+import { Asteroid, Asteroids } from '../types';
 
 
 export type StartDate = Date;
@@ -17,6 +17,9 @@ export type OnlyDangerous = boolean;
 interface IAsteroidsContext {
   asteroids: Asteroids;
   setAsteroids?: (asteroids: Asteroids) => void;
+  doomedAsteroids: Asteroids;
+  addDoomedAsteroid?: (asteroid: Asteroid) => void;
+  destroyDoomedAsteroids?: () => void;
   startDate: StartDate;
   setStartDate?: (startDate: StartDate) => void;
   missDistanceDisplay: MissDistanceDisplay;
@@ -33,6 +36,7 @@ const onlyDangerousInitial = false;
 
 export const AsteroidsContext = React.createContext<IAsteroidsContext>({
   asteroids: asteroidsInitial,
+  doomedAsteroids: asteroidsInitial,
   startDate: startDateInitial,
   missDistanceDisplay: missDistanceDisplayInitial,
   onlyDangerous: onlyDangerousInitial,
@@ -51,6 +55,28 @@ export function AsteroidsProvider({ children }: Props) {
     (newAsteroids: Asteroids) => setAsteroidsState(newAsteroids),
     [setAsteroidsState],
   );
+
+
+  const [doomedAsteroids, setDoomedAsteroidsState] = useState<Asteroids>(asteroidsInitial);
+
+  const addDoomedAsteroid = useCallback(
+    (newAsteroid: Asteroid) => setDoomedAsteroidsState(
+      (asteroidsPrev) => asteroidsPrev.concat(newAsteroid),
+    ),
+    [setDoomedAsteroidsState],
+  );
+
+  const destroyDoomedAsteroids = useCallback(
+    () => {
+      const doomedAsteroidIDs = doomedAsteroids.map((doomedAsteroid) => doomedAsteroid.id);
+
+      const filtered = asteroids.filter((asteroid) => !doomedAsteroidIDs.includes(asteroid.id));
+      setAsteroidsState(filtered);
+      setDoomedAsteroidsState(asteroidsInitial);
+    },
+    [doomedAsteroids, setDoomedAsteroidsState, asteroids, setAsteroidsState],
+  );
+
 
   const [startDate, setStartDateState] = useState<StartDate>(startDateInitial);
 
@@ -89,6 +115,9 @@ export function AsteroidsProvider({ children }: Props) {
     () => ({
       asteroids,
       setAsteroids,
+      doomedAsteroids,
+      addDoomedAsteroid,
+      destroyDoomedAsteroids,
       startDate,
       setStartDate,
       missDistanceDisplay,
@@ -100,6 +129,9 @@ export function AsteroidsProvider({ children }: Props) {
     [
       asteroids,
       setAsteroids,
+      doomedAsteroids,
+      addDoomedAsteroid,
+      destroyDoomedAsteroids,
       startDate,
       setStartDate,
       missDistanceDisplay,

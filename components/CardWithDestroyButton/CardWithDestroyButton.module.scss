@@ -1,3 +1,5 @@
+@import "../../styles/variables.scss";
+
 .button {
   margin-top: 18px;
   padding: 2px 11px;
@@ -9,5 +11,9 @@
   text-transform: uppercase;
   border: none;
   border-radius: 24px;
-  background-color: #186DD6;
+  background-color: $button-bg-color;
+
+  &:active {
+    background-color: darken($button-bg-color, 20%);
+  }
 }

@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, {
-  useState, useCallback, useEffect, PropsWithChildren,
+  useState, useCallback, useEffect, PropsWithChildren, useContext,
 } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -9,7 +9,19 @@ import cn from 'classnames';
 import styles from './Header.module.scss';
 import { APOD } from '../../../pages/api/apod';
 import API from '../../../app/API';
+import { AsteroidsContext } from '../../../app/contexts/Asteroids';
 
+
+function OrderText() {
+  const { doomedAsteroids: { length } } = useContext(AsteroidsContext);
+
+  return (
+    <>
+      Заказ
+      {length !== 0 && ` (${length})`}
+    </>
+  );
+}
 
 function ActiveLink({ children, href }: PropsWithChildren<{ href: string }>) {
   const router = useRouter();
@@ -66,7 +78,7 @@ function Header() {
           <ActiveLink href="/">
             Астероиды
           </ActiveLink>
-          <ActiveLink href="/order">Заказ</ActiveLink>
+          <ActiveLink href="/order"><OrderText /></ActiveLink>
         </nav>
       </header>
     </div>

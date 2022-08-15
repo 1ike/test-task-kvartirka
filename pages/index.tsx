@@ -62,13 +62,14 @@ const Home: NextPage = () => {
       />
       <div ref={ref} />
 
-      {loading && <p>Loading...</p>}
+      {loading && <p>Загрузка...</p>}
       {error && (
         <>
           <p>{`Error: ${error}`}</p>
           <button type="button" onClick={fetchAsteroids}>Попробовать подгрузить еще</button>
         </>
       )}
+      {!loading && filteredAsteroids.length === 0 && <p>Не найдено подходящих астероидов.</p>}
 
     </div>
   );
