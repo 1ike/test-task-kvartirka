@@ -67,7 +67,9 @@ const Home: NextPage<Props> = ({
 }) => {
   const {
     asteroids, setAsteroids, startDate, setStartDate, filteredAsteroids, missDistanceDisplay,
+    scrollPosition, setScrollPosition,
   } = useContext(AsteroidsContext);
+
   const hasAsteroids = asteroids.length;
 
   const [loading, setLoading] = useState(false);
@@ -107,6 +109,17 @@ const Home: NextPage<Props> = ({
     setAsteroids, preloadedAsteroids, setStartDate, preloadedStartDateString,
   ]);
 
+  useEffect(() => {
+    window.scrollTo({
+      top: scrollPosition,
+    });
+  }, [scrollPosition]);
+
+  const onCardClick = useCallback(
+    () => setScrollPosition!(window.scrollY || window.pageYOffset),
+    [setScrollPosition],
+  );
+
   const renderUpdateButton = () => (
     <button type="button" onClick={fetchAsteroids}>Попробовать подгрузить еще</button>
   );
@@ -121,6 +134,7 @@ const Home: NextPage<Props> = ({
         asteroids={hasAsteroids ? filteredAsteroids : preloadedAsteroids}
         component={CardWithDestroyButton}
         options={{ missDistanceDisplay }}
+        onCardClick={onCardClick}
       />
       <div ref={ref} />
 

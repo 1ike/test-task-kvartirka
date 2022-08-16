@@ -27,12 +27,15 @@ interface IAsteroidsContext {
   onlyDangerous: OnlyDangerous;
   setOnlyDangerous?: (value: OnlyDangerous) => void;
   filteredAsteroids: Asteroids;
+  scrollPosition: number;
+  setScrollPosition?: (val: number) => void;
 }
 
 export const asteroidsInitial: Asteroids = [];
 const startDateInitial: StartDate = new Date();
 const missDistanceDisplayInitial = MissDistanceDisplay.kilometers;
 const onlyDangerousInitial = false;
+const scrollPositionInitial = 0;
 
 export const AsteroidsContext = React.createContext<IAsteroidsContext>({
   asteroids: asteroidsInitial,
@@ -41,6 +44,7 @@ export const AsteroidsContext = React.createContext<IAsteroidsContext>({
   missDistanceDisplay: missDistanceDisplayInitial,
   onlyDangerous: onlyDangerousInitial,
   filteredAsteroids: asteroidsInitial,
+  scrollPosition: scrollPositionInitial,
 });
 
 
@@ -111,6 +115,14 @@ export function AsteroidsProvider({ children }: Props) {
   ), [asteroids, onlyDangerous]);
 
 
+  const [scrollPosition, setScrollPositionState] = useState<number>(scrollPositionInitial);
+
+  const setScrollPosition = useCallback(
+    (value: number) => setScrollPositionState(value),
+    [setScrollPositionState],
+  );
+
+
   const value = useMemo(
     () => ({
       asteroids,
@@ -125,6 +137,8 @@ export function AsteroidsProvider({ children }: Props) {
       onlyDangerous,
       setOnlyDangerous,
       filteredAsteroids,
+      scrollPosition,
+      setScrollPosition,
     }),
     [
       asteroids,
@@ -139,6 +153,8 @@ export function AsteroidsProvider({ children }: Props) {
       onlyDangerous,
       setOnlyDangerous,
       filteredAsteroids,
+      scrollPosition,
+      setScrollPosition,
     ],
   );
 
