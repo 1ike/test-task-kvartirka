@@ -16,6 +16,7 @@ import Cards from '../components/Cards';
 const Home: NextPage = () => {
   const {
     asteroids, setAsteroids, startDate, setStartDate, filteredAsteroids, missDistanceDisplay,
+    scrollPosition, setScrollPosition,
   } = useContext(AsteroidsContext);
 
   const [loading, setLoading] = useState(false);
@@ -49,6 +50,19 @@ const Home: NextPage = () => {
     }
   }, [inView, loading, fetchAsteroids]);
 
+
+  useEffect(() => {
+    window.scrollTo({
+      top: scrollPosition,
+    });
+  }, [scrollPosition]);
+
+  const onCardClick = useCallback(
+    () => setScrollPosition!(window.scrollY || window.pageYOffset),
+    [setScrollPosition],
+  );
+
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -59,6 +73,7 @@ const Home: NextPage = () => {
         asteroids={filteredAsteroids}
         component={CardWithDestroyButton}
         options={{ missDistanceDisplay }}
+        onCardClick={onCardClick}
       />
       <div ref={ref} />
 
