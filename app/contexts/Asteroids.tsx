@@ -64,10 +64,13 @@ export function AsteroidsProvider({ children }: Props) {
   const [doomedAsteroids, setDoomedAsteroidsState] = useState<Asteroids>(asteroidsInitial);
 
   const addDoomedAsteroid = useCallback(
-    (newAsteroid: Asteroid) => setDoomedAsteroidsState(
-      (asteroidsPrev) => asteroidsPrev.concat(newAsteroid),
-    ),
-    [setDoomedAsteroidsState],
+    (newAsteroid: Asteroid) => {
+      const alreadyInList = doomedAsteroids.some((asteroid) => asteroid.id === newAsteroid.id);
+      if (!alreadyInList) {
+        setDoomedAsteroidsState((asteroidsPrev) => asteroidsPrev.concat(newAsteroid));
+      }
+    },
+    [doomedAsteroids, setDoomedAsteroidsState],
   );
 
   const destroyDoomedAsteroids = useCallback(

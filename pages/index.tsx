@@ -70,7 +70,7 @@ const Home: NextPage<Props> = ({
     scrollPosition, setScrollPosition,
   } = useContext(AsteroidsContext);
 
-  const hasAsteroids = asteroids.length;
+  const hasAsteroids = asteroids.length !== 0;
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -96,16 +96,16 @@ const Home: NextPage<Props> = ({
   );
 
   useEffect(() => {
-    if (asteroids && inView && !loading) {
+    if (hasAsteroids && inView && !loading) {
       fetchAsteroids();
     }
 
-    if (!asteroids) {
+    if (!hasAsteroids) {
       setAsteroids!(preloadedAsteroids);
       setStartDate!(new Date(preloadedStartDateString));
     }
   }, [
-    asteroids, inView, loading, fetchAsteroids,
+    hasAsteroids, inView, loading, fetchAsteroids,
     setAsteroids, preloadedAsteroids, setStartDate, preloadedStartDateString,
   ]);
 
