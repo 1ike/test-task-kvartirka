@@ -48,7 +48,7 @@ https://www.figma.com/file/UOdZ5Qzkif1Ideye76OpjA/Armaggedon-V2?node-id=0%3A1
 
 ## Использование
 
-### Установите зависимости:
+### Установите зависимости
 
 ```bash
 npm install
@@ -58,7 +58,7 @@ yarn
 
 &nbsp;
 
-Для сборки скрипта введите
+### Для сборки скрипта и его запуска введите
 
 ```bash
 npm run build
@@ -66,9 +66,17 @@ npm run build
 yarn build
 ```
 
+и затем
+
+```bash
+npm run start
+# or
+yarn start
+```
+
 &nbsp;
 
-Для разработки или оценки результата ([на живой странице](http://localhost:3000/)) введите
+### Для разработки или оценки результата ([на живой странице](http://localhost:3000/)) введите
 
 ```bash
 npm run dev

@@ -32,7 +32,7 @@ const Card = ({
 
   const missDistanceData = asteroid.close_approach_data[0].miss_distance;
   const missDistance = missDistanceDisplay === MissDistanceDisplay.lunar
-    ? `${Number(missDistanceData.lunar)} лунных орбит`
+    ? `${Number(missDistanceData.lunar).toFixed(5)} лунных орбит`
     : `${Math.ceil(Number(missDistanceData.kilometers))} км`;
 
   return (
