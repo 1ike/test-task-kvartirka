@@ -29,7 +29,7 @@ interface IAsteroidsContext {
   filteredAsteroids: Asteroids;
 }
 
-const asteroidsInitial: Asteroids = [];
+export const asteroidsInitial: Asteroids = [];
 const startDateInitial: StartDate = new Date();
 const missDistanceDisplayInitial = MissDistanceDisplay.kilometers;
 const onlyDangerousInitial = false;

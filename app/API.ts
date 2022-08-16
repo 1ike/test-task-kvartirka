@@ -10,7 +10,10 @@ interface AsteroidsParams {
   endDate?: Date;
 }
 
-const fetchAsteroids = ({ startDate, endDate }: AsteroidsParams): Promise<(NearEarthObjects)> => {
+const fetchAsteroids = (
+  { startDate, endDate }: AsteroidsParams,
+  serverUrl: string = '',
+): Promise<(NearEarthObjects)> => {
   let end;
   if (!endDate) {
     end = formatDateForQuery(addDaysToNewDate(startDate, DAY_STEP - 1));
@@ -19,7 +22,7 @@ const fetchAsteroids = ({ startDate, endDate }: AsteroidsParams): Promise<(NearE
   }
 
   return fetch(
-    `${API_BASE_URL}/asteroids?${new URLSearchParams({
+    `${serverUrl}${API_BASE_URL}/asteroids?${new URLSearchParams({
       start_date: formatDateForQuery(startDate),
       end_date: end,
     })}`,
