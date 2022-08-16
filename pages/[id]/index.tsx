@@ -64,16 +64,28 @@ const Details: NextPage<Props> = ({ asteroid, errorMessage }) => {
           <DestroyButton asteroid={asteroid} />
 
           <h2 className={styles['section-title']}>Список сближений:</h2>
-          {asteroid.close_approach_data.map((approach) => (
-            <ul>
-              <h3 className={styles['approach-title']}>
-                {approach.close_approach_date_full}
-              </h3>
-              <li>{`скорость относительно Земли: ${parseInt(approach.relative_velocity.kilometers_per_hour, 10)} км/ч`}</li>
-              <li>{`время максимального сближения с Землей: ${new Date(approach.epoch_date_close_approach)}`}</li>
-              <li>{`летит по орбите вокруг: ${approach.orbiting_body}`}</li>
-            </ul>
-          ))}
+          {asteroid.close_approach_data.map((approach) => {
+            const closeApproachDateString = (new Date(approach.epoch_date_close_approach))
+              .toLocaleString('ru', {
+                month: 'long',
+                year: 'numeric',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric',
+                second: 'numeric',
+              });
+
+            return (
+              <ul key={approach.close_approach_date_full}>
+                <h3 className={styles['approach-title']}>
+                  {approach.close_approach_date}
+                </h3>
+                <li>{`скорость относительно Земли: ${parseInt(approach.relative_velocity.kilometers_per_hour, 10)} км/ч`}</li>
+                <li>{`время максимального сближения с Землей: ${closeApproachDateString}`}</li>
+                <li>{`летит по орбите вокруг: ${approach.orbiting_body}`}</li>
+              </ul>
+            );
+          })}
         </>
       )}
     </div>
