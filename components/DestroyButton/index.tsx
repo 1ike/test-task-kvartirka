@@ -8,7 +8,10 @@ import { Asteroid } from '../../app/types';
 const DestroyButton = ({ asteroid }: { asteroid: Asteroid }) => {
   const { addDoomedAsteroid } = useContext(AsteroidsContext);
 
-  const addToBlackList = () => addDoomedAsteroid!(asteroid);
+  const addToBlackList = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    addDoomedAsteroid!(asteroid);
+  };
 
   return (
     <button
