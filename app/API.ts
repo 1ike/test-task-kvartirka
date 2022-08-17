@@ -20,7 +20,8 @@ const fetchAsteroids = (
   } else {
     end = formatDateForQuery(endDate);
   }
-
+console.log('startDate API = ', startDate);
+console.log('startDate API start_date = ', formatDateForQuery(startDate));
   return fetch(
     `${serverUrl}${API_BASE_URL}/asteroids?${new URLSearchParams({
       start_date: formatDateForQuery(startDate),
